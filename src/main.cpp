@@ -5,6 +5,7 @@ using namespace std;
 
 int base10ToBase8(int n);
 int base8ToBase2(int n);
+int base2ToBase4(int n);
 
 int main() {
 	
@@ -14,7 +15,7 @@ int main() {
 	
 
 	int y8 = base10ToBase8(n);
-	cout << "Base8: " << y8 << endl;
+	cout << "Base 8: " << y8 << endl;
 	
 	//maale 2
 	long y2 = 0;
@@ -31,7 +32,8 @@ int main() {
 	}while(kharj > 0);
 	
 	cout << "Base 2: " << y2 << endl;
-
+	
+	cout << "Base 4: " << base2ToBase4(y2) << endl;
 	
 	return 0;
 }
@@ -70,5 +72,22 @@ int base8ToBase2(int n){
 	y2 = (pow(10,i)*kharjGhesmat) + y2;
 	
 	return y2;
+}
+
+int base2ToBase4(int y2){
+	//current is 1033
+	const int milirad = pow(10,9);
+	int i, c, a, y4 = milirad;
+	for (i = 0, a = 0, c = 0; y2 > 0; i++) {
+        a = y2 % 100;
+        if (a == 0) c = 0;
+        else if (a == 1) c = 1;
+        else if (a == 10) c = 2;
+        else if (a == 11) c = 3;
+        y4 = y4 + (c * pow(10, i)); 
+		y2 = y2 / 100;
+    }
+    return y4%milirad;
+    
 }
 
