@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 
 using namespace std;
@@ -7,6 +8,9 @@ int linearSearch(int arr[], int lenght, int query);
 
 /* Function to sort an array using bubbleSortt algorithm*/
 void bubbleSort(int arr[], int n);
+
+/* Fucniton to determin if a array is sorted assending? */
+bool isSortedAscending(int a[], int n);
 
 /* Function to search in array using binarySearch algorithm */
 int binarySearch(int arr[], int lenght, int query);
@@ -69,9 +73,16 @@ void bubbleSort(int arr[], int n) {
         swap(arr[j], arr[j + 1]);
 }
 
+bool isSortedAscending(int a[], int n) {
+  for (int i = 1; i < n; i++)
+    if (a[i] < a[i - 1])
+      return false;
+  return true;
+}
+
 int binarySearch(int arr[], int lenght, int query) {
   // array in binary search should be sorted first
-  bubbleSort(arr, lenght);
+  assert(isSortedAscending(arr, lenght));
   int low = 0;
   int high = lenght - 1;
   int mid;
