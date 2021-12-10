@@ -1,54 +1,34 @@
-#include <cassert>
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
-/* Main function*/
 int main() {
 
-  // 1D array ///
-  int a[4] = {1, 2, 3, 4};
+  int n;
+  cout << "How many number do you want to enter? ";
+  cin >> n;
 
-  // print
-  cout << "1D" << endl;
-  for (int i = 0; i < 4; i++) {
-    cout << a[i] << " ";
+  double firstSigma = 0;
+  double secondSigma = 0;
+  for (int i = 0; i < n; i++) {
+    double x;
+    cout << "Enter #" << i + 1 << " number: ";
+    cin >> x;
+    firstSigma += pow(x, 2);
+    secondSigma += x;
   }
-  cout << endl;
+  cout << "firstSigma :" << firstSigma << endl;
+  cout << "secondSigma :" << secondSigma << endl;
+  double firstHalf = firstSigma / n;
+  double secondHalf = pow((secondSigma / n), 2);
 
-  // 2D array ///
-  int b[2][3] = {1, 2, 3, 4, 5, 6};
-  int c[2][3] = {{1, 2, 3}, {4, 5, 6}};
+  double vee = firstHalf - secondHalf;
 
-  // print
-  cout << "2D" << endl;
-  for (int i = 0; i < 2; i++) {
-    for (int j = 0; j < 3; j++) {
-      cout << b[i][j] << " ";
-      assert(b[i][j] == c[i][j]);
-    }
-    cout << endl;
-  }
-  cout << endl;
-  // 3d array ///
-  int d[4][3][2] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 11, 12,
-                    13, 14, 15, 16, 17, 18, 19, 20, 21, 22,  23, 24};
-  int e[4][3][2] = {{{10, 20}, {30, 40}, {50, 60}},
-                    {{70, 80}, {90, 100}, {11, 12}},
-                    {{13, 14}, {15, 16}, {17, 18}},
-                    {{19, 20}, {21, 22}, {23, 24}}};
+  cout << "firstHalf :" << firstHalf << endl;
+  cout << "secondHalf :" << secondHalf << endl;
 
-  cout << "3D" << endl;
-  for (int i = 0; i < 4; i++) {
-    for (int j = 0; j < 3; j++) {
-      for (int k = 0; k < 2; k++) {
-        cout << d[i][j][k] << " ";
-        assert(d[i][j][k] == e[i][j][k]);
-      }
-      cout << "/ ";
-    }
-    cout << endl;
-  }
-  cout << endl;
+  cout << "V = " << vee << endl;
+
   return 0;
 }
