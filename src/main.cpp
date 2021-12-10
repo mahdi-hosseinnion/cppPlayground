@@ -4,31 +4,22 @@ using namespace std;
 
 int main() {
 
-  int n;
-  cout << "Enter your number: ";
-  cin >> n;
-
-  int sumEven = 0;
-  int countEven = 0;
-
-  int sumOdd = 0;
-  int countOdd = 0;
-
-  do {
-    int digit = n % 10;
-    n = n / 10;
-    if (digit % 2 == 0) {
-      // Even
-      sumEven += digit;
-      countEven++;
-    } else {
-      // Odd
-      sumOdd += digit;
-      countOdd++;
+  int starCount = 14;
+  int lineCount = 21;
+  char star = '*';
+  int counter = 0;
+  for (int i = (lineCount - 1); i >= 0; i--) {
+    // print spaces
+    for (int j = 0; j < i; j++) {
+      cout << " ";
     }
-  } while (n);
+    // print stars
+    for (int s = 0; s < starCount; s++) {
+      cout << star;
+    }
+    counter++;
+    cout << " line # " << counter << endl;
+  }
 
-  cout << "Avg of even digits: " << (sumEven / countEven) << endl;
-  cout << "Avg of odd digits: " << (sumOdd / countOdd) << endl;
   return 0;
 }
