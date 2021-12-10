@@ -1,34 +1,34 @@
 #include <iostream>
-#include <math.h>
 
 using namespace std;
 
 int main() {
 
   int n;
-  cout << "How many number do you want to enter? ";
+  cout << "Enter your number: ";
   cin >> n;
 
-  double firstSigma = 0;
-  double secondSigma = 0;
-  for (int i = 0; i < n; i++) {
-    double x;
-    cout << "Enter #" << i + 1 << " number: ";
-    cin >> x;
-    firstSigma += pow(x, 2);
-    secondSigma += x;
-  }
-  cout << "firstSigma :" << firstSigma << endl;
-  cout << "secondSigma :" << secondSigma << endl;
-  double firstHalf = firstSigma / n;
-  double secondHalf = pow((secondSigma / n), 2);
+  int sumEven = 0;
+  int countEven = 0;
 
-  double vee = firstHalf - secondHalf;
+  int sumOdd = 0;
+  int countOdd = 0;
 
-  cout << "firstHalf :" << firstHalf << endl;
-  cout << "secondHalf :" << secondHalf << endl;
+  do {
+    int digit = n % 10;
+    n = n / 10;
+    if (digit % 2 == 0) {
+      // Even
+      sumEven += digit;
+      countEven++;
+    } else {
+      // Odd
+      sumOdd += digit;
+      countOdd++;
+    }
+  } while (n);
 
-  cout << "V = " << vee << endl;
-
+  cout << "Avg of even digits: " << (sumEven / countEven) << endl;
+  cout << "Avg of odd digits: " << (sumOdd / countOdd) << endl;
   return 0;
 }
