@@ -1,8 +1,11 @@
 #include "conio.h"
+#include "math.h"
 #include "stdio.h"
+
 int main() {
-  int p1, p2;
-  char c, op, flgequal, flgD;
+  float p1, p2;
+  char c, op, flgequal;
+  int flgD;
 
   p1 = p2 = 0;
   op = '=';
@@ -34,22 +37,23 @@ int main() {
           flgequal = 0;
           printf("\n");
         }
-        if (flgD)
-          p1 = 10 * p1 +
-               (c - '0'); // A new code for floating-point digits is required
-        else
+        if (flgD) { // user have entered a '.'
+          float digit = (c - '0');
+          p1 = p1 + (digit / pow(10, flgD));
+          flgD++;
+        } else
           p1 = 10 * p1 + (c - '0');
         p2 = 0;
-      } else { // entering second number
-        if (flgD)
-          p2 = 10 * p2 +
-               (c - '0'); // A new code for floating-point digits is required
-        else
+      } else {      // entering second number
+        if (flgD) { // user have entered a '.'
+          float digit = (c - '0');
+          p2 = p2 + (digit / pow(10, flgD));
+          flgD++;
+        } else
           p2 = 10 * p2 + (c - '0');
       }
       printf("%c", c);
       break;
-
     case '+':
     case '-':
     case '*':
@@ -73,11 +77,11 @@ int main() {
         flgequal = 1;
         printf("\t=\n");
         printf("-----------------\n", c);
-        printf("%d", p1);
+        printf("%.3f", p1);
       } else {
         if (op != '=') { // nk
           printf("\n-----------------\n", c);
-          printf("%d", p1);
+          printf("%.3f", p1);
         }
         printf("\t%c\n", c);
       }
@@ -89,7 +93,7 @@ int main() {
     case 'x':
       return 0;
 
-    case 'c':
+    case 'C': // FIX THIS
       if (op == '=')
         p1 = 0;
       else
@@ -106,8 +110,80 @@ int main() {
       printf("\n0\n");
       break;
 
-    case '.': // For defining the floating point computations in the calculator
+    case '.':
       flgD = 1;
+      printf("%c", c);
+      break;
+      // sin
+    case 's':
+      if (op == '=') {
+        p1 = sin(p1);
+        printf("\t sin\n%.3f", p1);
+      } else {
+        p2 = sin(p2);
+        printf("\t sin\n%.3f", p2);
+      }
+      break;
+      // cos
+    case 'c':
+      if (op == '=') {
+        p1 = cos(p1);
+        printf("\t cos\n%.3f", p1);
+      } else {
+        p2 = cos(p2);
+        printf("\t cos\n%.3f", p2);
+      }
+      break;
+      // tan
+    case 't':
+      if (op == '=') {
+        p1 = tan(p1);
+        printf("\t tan\n%.3f", p1);
+      } else {
+        p2 = tan(p2);
+        printf("\t tan\n%.3f", p2);
+      }
+      break;
+      // floor
+    case 'f':
+      if (op == '=') {
+        p1 = floor(p1);
+        printf("\t floor\n%.3f", p1);
+      } else {
+        p2 = floor(p2);
+        printf("\t floor\n%.3f", p2);
+      }
+      break;
+      // exp
+    case 'e':
+      if (op == '=') {
+        p1 = exp(p1);
+        printf("\t exp\n%.3f", p1);
+      } else {
+        p2 = exp(p2);
+        printf("\t exp\n%.3f", p2);
+      }
+      break;
+      // log10
+    case 'l':
+      if (op == '=') {
+        p1 = log10(p1);
+        printf("\t log10\n%.3f", p1);
+      } else {
+        p2 = log10(p2);
+        printf("\t log10\n%.3f", p2);
+      }
+      break;
+      // minus
+    case 'm':
+      if (op == '=') {
+        p1 = p1 * -1;
+        printf("\t minus\n%.3f", p1);
+      } else {
+        p2 = p2 * -1;
+        printf("\t minus\n%.3f", p2);
+      }
+      break;
     }
   }
 }
