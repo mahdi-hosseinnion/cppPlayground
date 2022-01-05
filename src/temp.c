@@ -1,36 +1,54 @@
+#include <math.h>
 #include <stdio.h>
-int main() {
-  int n = 4;
-  float x[10] = {2, -3, 5, -1};
-  float A[20][20] = {
-      {2, 5, 3, -3}, {-2, -2, 3, 0}, {1, 2, 3, 4}, {-5, -4, -3, -2}};
-  int i, j, k; //, n;
-  float c;
-  // float A[20][20], c, x[10];
-  // printf("\nEnter the size of matrix: ");
-  // scanf_s("%d", &n);
-  // printf("\nEnter the elements of augmented matrix row-wise:\n");
-  // for (i = 1; i <= n; i++) {
-  //   for (j = 1; j <= (n + 1); j++) {
-  //     printf(" A[%d][%d]:", i, j);
-  //     scanf_s("%f", &A[i][j]);
-  //   }
-  // }
-  /* Now finding the elements of diagonal matrix */
-  for (i = 1; i <= n; i++) {
-    for (j = 1; j <= n; j++) {
-      if (i != j) {
-        c = A[j][i] / A[j][j];
-        for (k = 1; k <= n + 1; k++) {
-          A[k][i] = A[k][i] - c * A[k][j];
-        }
+
+int gaussian(float A[9][9], int n, float c[]) {
+  for (int j = 0; j < n; j++) {
+    for (int i = (n - 1); i > j; i--) {
+      float zarib = -1 * ((A[i][j]) / (A[j][j]));
+      for (int w = 0; w < n; w++) {
+        float zarbShodeDarZarib = zarib * A[j][w];
+        A[i][w] = A[i][w] + zarbShodeDarZarib;
       }
+      float zarbShodeDarZarib = zarib * c[j];
+      c[i] = c[i] + zarbShodeDarZarib;
     }
   }
-  printf("\nThe solution is:\n");
-  for (i = 1; i <= n; i++) {
-    x[i] = A[n + 1][i] / A[i][i];
-    printf("\n x%d=%f\n", i, x[i]);
+
+  float answerList[n] = {0};
+  for (int i = (n - 1); i >= 0; i--) {
+    float sum = 0;
+    for (int j = (i + 1); j < n; j++) {
+
+      sum -= answerList[j] * A[i][j];
+    }
+    float xn = (c[i] + sum) / A[i][i];
+    answerList[i] = xn;
   }
-  return (0);
+  for (int i = 0; i < n; i++) {
+    printf("x#%d: %2.2f \n", (i + 1), answerList[i]);
+  }
+}
+
+int main() {
+  // n should be smaller then 9
+  int n;
+  printf("Inter the size of matrix: ");
+  scanf("%d", &n);
+
+  float A[9][9];
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+
+      printf("A[%d][%d]: ", (i + 1), (j + 1));
+      scanf("%f", &A[i][j]);
+    }
+  }
+  float c[9];
+  for (int i = 0; i < n; i++) {
+    printf("c[%d]: ", (i + 1));
+    scanf("%f", &c[i]);
+  }
+  gaussian(A, n, c);
+
+  return 0;
 }
