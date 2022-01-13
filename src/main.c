@@ -19,7 +19,7 @@ int main() {
   char string[size];
   printf("Inter a string: (maximum lenght = %d)", size);
   scanf("%s", string);
-
+  convertAtoaAndReverse(string);
   printf("Result is: %s", string);
 
   return 0;
