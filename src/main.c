@@ -22,6 +22,7 @@ char *MYstrstr(char *str1, char *str2) {
       }
     }
     str1++;
+    
   }
 
   return NULL;
